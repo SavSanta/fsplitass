@@ -8,12 +8,15 @@ namespace fsplitass
     class Program
     {
         private const int BUFFER_SIZE = 10 * 1024 * 1024;
+        private const string APPVERSION = "1.0.2406.0";
+
         static void Main(string[] args)
         {
 
             if (args.Length < 3)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
+                PrintVersion();
                 Console.Write("Syntax error: fsplitass.exe <target_filename> <destination_folder> <max_bytes_per_split>\n" +
                     " Example:\n # Split file into approx 25 megabytes subfiles \nfsplitass.exe AliceNightly.img Alice_Split 25000000\n" +
                     " Example:\n # Split file into approx 5 gigabyte subfiles \nfsplitass.exe ServerDataBakup.vdisk D:\\ServerChunks 5000000000");
@@ -55,7 +58,7 @@ namespace fsplitass
             Console.WriteLine();
             try
             {
-            SplitFile(targFile, outDir, bytesSplitSize);
+                SplitFile(targFile, outDir, bytesSplitSize);
             }
             catch (Exception ex)
             {
@@ -64,7 +67,13 @@ namespace fsplitass
                 Console.ResetColor();
                 return;
             }
-    }
+        }
+
+
+        public static void PrintVersion()
+        {
+            Console.WriteLine("fsplitass.exe {0}", APPVERSION);
+        }
 
         public static void SplitFile(string srcFileName, string outDirPath, long subFileSize)
         {
@@ -202,7 +211,7 @@ namespace fsplitass
             fileStreamOut.Close();
         }
 
-        public static void JoinSubFiles() 
+        public static void JoinSubFiles()
         {
             throw new NotImplementedException();
             /* // Operator can manually run the following to re-join the files.
