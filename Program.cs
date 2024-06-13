@@ -204,7 +204,8 @@ namespace fsplitass
 
         public static void JoinSubFiles() 
         {
-            /*
+            throw new NotImplementedException();
+            /* // Operator can manually run the following to re-join the files.
             Console.WriteLine("Options");
             Console.Write("\n\n1.[pshw] Get-Content -Raw file1, file2 | Set-Content -NoNewline destination\n2.[mscmd]copy file1 /b + file2 /b + file3 /b destfile");
             */
