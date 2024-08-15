@@ -8,7 +8,7 @@ namespace fsplitass
     class Program
     {
         private const int BUFFER_SIZE = 10 * 1024 * 1024;
-        private const string APPVERSION = "1.0.2406.0";
+        private const string APPVERSION = "1.0.2408.0";
 
         static void Main(string[] args)
         {
@@ -154,19 +154,22 @@ namespace fsplitass
             }
 
             // Sub file extention pattern
+            /* // Original Method Which Works Fine For Adding Leading Zeros if The Total SplitFiles Will be 10 or greater. Though, less than 10 it doesnt produce a leading zero per OPSEC request of an opertator
             int subFileExtLen = numSubFile.ToString().Length;
             String subFileExt = "";
             for (int ind = 0; ind < subFileExtLen; ind++)
             {
                 subFileExt += "0";
             }
+            */
 
             // List of sub files
             outPath += "\\" + orgFileInfo.Name + ".";
 
             for (int ind = 1; ind <= numSubFile; ind++)
             {
-                String subFileName = outPath + ind.ToString(subFileExt);
+                //String subFileName = outPath + ind.ToString(subFileExt);
+                String subFileName = outPath + ind.ToString("00");
                 lstSubFileName.Add(subFileName);
             }
 
