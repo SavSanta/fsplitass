@@ -8,7 +8,7 @@ namespace fsplitass
     class Program
     {
         private const int BUFFER_SIZE = 10 * 1024 * 1024;
-        private const string APPVERSION = "1.0.2408.1";
+        private const string APPVERSION = "1.0.2408.2";
 
         static void Main(string[] args)
         {
@@ -51,7 +51,7 @@ namespace fsplitass
             if (bytesSplitSize > 1.0000E10)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine("NOTE: Operator chose split files into rather large chunks (greater than 10 GB). Verify a good size for transfer.", targSize);
+                Console.WriteLine("NOTE: Operator chose to split files into rather large chunks (greater than 10 GB). Verify a good size for transfer.", targSize);
                 Console.ResetColor();
             }
 
@@ -82,7 +82,7 @@ namespace fsplitass
                || !File.Exists(srcFileName)
                || subFileSize <= 0)
             {
-                throw new Exception("File Split parameters wrong!");
+                throw new Exception("FATALERR: Split parameters wrong!");
             }
 
             if (!Directory.Exists(outDirPath))
@@ -103,7 +103,7 @@ namespace fsplitass
 
             IList<String> lstSubFiles = GetSubFileName(srcFileName, outDirPath, subFileSize);
 
-            Console.WriteLine("Spliting to [{0}] sub files.", lstSubFiles.Count);
+            Console.WriteLine("Spliting into [{0}] sub files.", lstSubFiles.Count);
 
             FileStream orgFile = new FileStream(srcFileName, FileMode.Open, FileAccess.Read);
 
@@ -154,7 +154,7 @@ namespace fsplitass
             }
 
             // Sub file extention pattern
-            /* // Original Method Which Works Fine For Adding Leading Zeros if The Total SplitFiles Will be 10 or greater. Though, less than 10 it doesnt produce a leading zero per OPSEC request of an opertator
+            /* // Original Method "subFileName = outPath + ind.ToString(subFileExt)" Which Works Fine For Adding Leading Zeros if The Total SplitFiles Will be 10 or greater. Though, less than 10 it doesnt produce a leading zero per OPSEC request of an opertator
             int subFileExtLen = numSubFile.ToString().Length;
             String subFileExt = "";
             for (int ind = 0; ind < subFileExtLen; ind++)
@@ -168,7 +168,6 @@ namespace fsplitass
 
             for (int ind = 1; ind <= numSubFile; ind++)
             {
-                //String subFileName = outPath + ind.ToString(subFileExt);
                 String subFileName = outPath + ind.ToString("00");
                 lstSubFileName.Add(subFileName);
             }
