@@ -8,7 +8,7 @@ namespace fsplitass
     class Program
     {
         private const int BUFFER_SIZE = 10 * 1024 * 1024;
-        private const string APPVERSION = "1.0.2408.2";
+        private const string APPVERSION = "1.0.2408.3";
 
         static void Main(string[] args)
         {
@@ -74,6 +74,13 @@ namespace fsplitass
         {
             Console.WriteLine("fsplitass.exe {0}", APPVERSION);
         }
+        public static void PrintManualJoinHint(string srcFileName)
+        {
+            // Operator can manually run the following to re-join the files.
+            srcFileName = Path.GetFileName(srcFileName);
+            Console.WriteLine("Manual Re-join Options");
+            Console.Write("\n1.[pshw] Get-Content -Raw {0}* | Set-Content -NoNewline rejoined-{0}\n2.[msCMD] copy {0}* /b rejoined-{0}\n3.[bash] cat {0}* > rejoined-{0}", srcFileName);
+        }
 
         public static void SplitFile(string srcFileName, string outDirPath, long subFileSize)
         {
@@ -122,7 +129,9 @@ namespace fsplitass
 
                 remainingFileSize -= subFileSize;
             }
-
+            /* Would print a hint but this is disabled for now due to ugliness
+            PrintManualJoinHint(srcFileName);
+            */
             Console.WriteLine("Split Routine Complete.");
         }
 
