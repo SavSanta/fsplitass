@@ -8,7 +8,7 @@ namespace fsplitass
     class Program
     {
         private const int BUFFER_SIZE = 10 * 1024 * 1024;
-        private const string APPVERSION = "1.0.2408.0";
+        private const string APPVERSION = "1.0.2408.1";
 
         static void Main(string[] args)
         {
